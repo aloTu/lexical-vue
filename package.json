@@ -11,6 +11,7 @@
   "dependencies": {
     "@lexical/dragon": "^0.16.1",
     "@lexical/history": "^0.16.1",
+    "@lexical/plain-text": "^0.16.1",
     "@lexical/rich-text": "^0.16.1",
     "@lexical/utils": "^0.16.1",
     "lexical": "^0.16.1",
@@ -23,5 +24,6 @@
     "vite": "^5.3.4",
     "vite-plugin-vue-devtools": "^7.3.7",
     "vue-tsc": "^2.0.24"
-  }
+  },
+  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
 }

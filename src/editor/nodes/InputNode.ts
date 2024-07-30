@@ -4,17 +4,15 @@ import type {
   NodeKey,
   EditorConfig,
   LexicalNode,
-  LexicalCommand,
-  SerializedElementNode,
-  SerializedLexicalNode,
+  LexicalCommand
 } from "lexical";
 
-export class InputTextNode extends TextNode {
+export class InputNode extends Element {
   __text: string
   __placeholder: string;
 
   constructor(placeholder?: string, key?: NodeKey) {
-    super(' ', key);
+    super();
     this.__text = ' ';
     this.__placeholder = placeholder ?? "";
   }
@@ -23,8 +21,8 @@ export class InputTextNode extends TextNode {
     return "input-text";
   }
 
-  static clone(node: InputTextNode): InputTextNode {
-    return new InputTextNode(node.__placeholder, node.__key);
+  static clone(node: InputNode): InputNode {
+    return new InputNode(node.__placeholder);
   }
 
   createDOM(config: EditorConfig): HTMLElement {
@@ -44,7 +42,7 @@ export class InputTextNode extends TextNode {
   }
 
   updateDOM(
-    prevNode: InputTextNode,
+    prevNode: InputNode,
     dom: HTMLElement,
     config: EditorConfig
   ): boolean {
@@ -60,8 +58,8 @@ export class InputTextNode extends TextNode {
   }
 }
 
-export function $createInputTextNode(placeholder?: string): InputTextNode {
-  return new InputTextNode(placeholder);
+export function $createInputTextNode(placeholder?: string): InputNode {
+  return new InputNode(placeholder);
 }
 
 export const INSERT_INPUTTEXT_NODE_COMMAND: LexicalCommand<void> =
@@ -69,6 +67,6 @@ export const INSERT_INPUTTEXT_NODE_COMMAND: LexicalCommand<void> =
 
 export function $isInputTextNode(
   node: LexicalNode | null | undefined
-): node is InputTextNode {
-  return node instanceof InputTextNode;
+): node is InputNode {
+  return node instanceof InputNode;
 }

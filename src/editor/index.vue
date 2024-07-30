@@ -2,9 +2,7 @@
 	<div class="editor-wrapper">
 		<ToolbarPlugin />
 		<div ref="root" class="editor" contenteditable="true"></div>
-		<component
-			:is="defineComponent({ name: 'LexicalDecoratedTeleports', setup: () => () => decorators })"
-		/>
+		<component :is="defineComponent({ name: 'LexicalDecoratedTeleports', setup: () => () => decorators })" />
 	</div>
 </template>
 
@@ -15,10 +13,10 @@ import { mergeRegister } from "@lexical/utils";
 import { registerDragonSupport } from "@lexical/dragon";
 import { createEmptyHistoryState, registerHistory } from "@lexical/history";
 import { registerRichText } from "@lexical/rich-text";
+import { registerPlainText } from '@lexical/plain-text';
 
-import { ColoredNode } from "./nodes/ColoredNode";
-
-import { InputNode } from "./nodes/inputNode";
+import { InputTextNode } from "./nodes/InputTextNode";
+import { InstructNode } from "./nodes/InstructNode";
 
 import prepopulatedRichText from "./prepopulatedRichText";
 import { useDecorators } from "./tools/useDecorators";
@@ -26,7 +24,7 @@ import ToolbarPlugin from "./plugins/ToolbarPlugin.vue";
 
 const config = {
 	namespace: "MyEditor",
-	nodes: [ColoredNode, InputNode],
+	nodes: [InputTextNode, InstructNode],
 	onError: console.error
 };
 const editor = createEditor(config);
@@ -42,7 +40,8 @@ onMounted(() => {
 		editor.setRootElement(root.value);
 	}
 	mergeRegister(
-		registerRichText(editor),
+		// registerRichText(editor),
+		registerPlainText(editor),
 		registerDragonSupport(editor),
 		registerHistory(editor, createEmptyHistoryState(), 300)
 	);
@@ -60,14 +59,20 @@ onMounted(() => {
 	border-radius: 8px;
 	padding: 8px 6px;
 	width: 800px;
-	.tool-header {
-		width: 100%;
-		height: 20px;
-		background-color: #ccc;
-		border-bottom: 1px solid #008c8c;
-	}
+
 	.editor {
 		min-height: 300px;
+	}
+}
+</style>
+<style lang="less">
+.input-text {
+	padding: 2px 4px;
+	margin: 0 2px;
+	border: solid 1px #ccc;
+	background: gray;
+	&::before{
+		content: "[Input]";
 	}
 }
 </style>
